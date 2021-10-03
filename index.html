@@ -140,6 +140,12 @@
         .then(response => response.json())
         .then(data => {
             let final = data.gallery
+            // arrayNombresFotos.push({
+            //     id: -1,
+            //     path: '',
+            //     check: '',
+            //     pathFull: ''
+            // });
             for (var key in final) {
                 if (final.hasOwnProperty(key)) {
                     var item = final[key];
@@ -303,8 +309,8 @@
             console.log("Screen       Width: " + Math.ceil(screen.width) + " , Height: " + Math.ceil(screen.height));
         }
         
-        let colTextures = [PIXI.Texture];
-        let colSprites = [PIXI.Sprite];
+        let colTextures = [];
+        let colSprites = [];
         let overlay = PIXI.Sprite;
         let overlayGrid = PIXI.Sprite;
         
@@ -632,11 +638,12 @@
             //     animate2()
             }else{
                 // console.log({ estadoAnimacion})
-                console.log('nada')
+                // console.log('nada')
                 contadorScreensaver++
                 if (contadorScreensaver == actualizacionJSONtime) {
                     terminamosLoading = 0
                     // hayactualizacionJSON()
+                    console.log('PreparaAnimacion')
                      preparaAnimacion();
                     estadoAnimacion = 0;
                     terminamosLoading = 4
@@ -644,6 +651,7 @@
                     // contadorScreensaver=0
                     // animacionXclick=true
                 }else if(contadorScreensaver > actualizacionJSONtime){
+                    console.log('Animate2')
                     animate2()
                 }
             }
@@ -799,6 +807,7 @@
                         sentidoScreenSaver = false;
                         app.stage.removeChild(overlay);
                         app.stage.addChild(overlay);
+                        console.log('PreparaAnimacion')
                         preparaAnimacion();
                         estadoAnimacion = 4;
                         imagenParaAnimar = 0;
@@ -1001,13 +1010,13 @@
                         let nuevo = arrayPosicionesMosaico[temp - 1].coordenadas
                         randomIndex = dameIndexByCoor(nuevo) - 1
                     }else{
-                        randomIndex = temp+1
+                        randomIndex = temp
                     }
 
                     if(arrayNombresFotos[randomIndex] === undefined){
                         console.error('undefined')
                     }else{
-                        check = arrayNombresFotos[randomIndex].check;
+                        check = arrayNombresFotos[temp].check;
                     }
                     
                     // let name = pathSkandia + arrayNombresFotos[randomIndex].pathFull;
